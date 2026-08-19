@@ -12,45 +12,45 @@ const { lang = "sk" } = Astro.props;
 const t = (key: string) => getTranslation(lang, key);
 ---
 
-<section id="about" class="py-20 lg:py-32 bg-neutral-950 relative overflow-hidden">
+<section id="about" class="py-12 sm:py-16 lg:py-32 bg-neutral-950 relative overflow-hidden">
   <!-- Background decoration -->
   <div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-yellow-400/10 to-transparent rounded-full blur-3xl"></div>
-  
+
   <Container>
     <div class="scroll-reveal">
       <SectionTitle subtitle={t('about.subtitle')} title={t('about.title')} />
     </div>
 
-    <div class="grid gap-8 lg:gap-12 lg:grid-cols-2 mt-12 lg:mt-16">
-      <div class="space-y-4 sm:space-y-6 scroll-reveal-left">
-        <p class="text-base sm:text-lg leading-relaxed text-neutral-300">
+    <div class="grid gap-6 sm:gap-8 lg:gap-12 lg:grid-cols-2 mt-8 sm:mt-12 lg:mt-16">
+      <div class="space-y-3 sm:space-y-4 lg:space-y-6 scroll-reveal-left">
+        <p class="text-sm sm:text-base lg:text-lg leading-relaxed text-neutral-300">
           {t('about.bio1')}
         </p>
 
-        <p class="text-base sm:text-lg leading-relaxed text-neutral-300">
+        <p class="text-sm sm:text-base lg:text-lg leading-relaxed text-neutral-300">
           {t('about.bio2')}
         </p>
 
-        <p class="text-base sm:text-lg leading-relaxed text-neutral-300">
+        <p class="text-sm sm:text-base lg:text-lg leading-relaxed text-neutral-300">
           {t('about.bio3')}
         </p>
       </div>
 
-      <div class="space-y-6 sm:space-y-8 scroll-reveal-right">
-        <div class="glass rounded-2xl p-4 sm:p-6 gradient-border">
-          <h3 class="heading-font mb-3 sm:mb-4 text-xl sm:text-2xl font-bold">{t('about.skills')}</h3>
-          <div class="grid grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-4 sm:space-y-6 lg:space-y-8 scroll-reveal-right">
+        <div class="glass rounded-2xl p-3 sm:p-4 lg:p-6 gradient-border">
+          <h3 class="heading-font mb-2 sm:mb-3 lg:mb-4 text-base sm:text-lg lg:text-2xl font-bold">{t('about.skills')}</h3>
+          <div class="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
             {["2D/Live Grafika", "Color Grading", "Premiere Pro", "After Effects", "Produkcia", "Gimbal Operator"].map((skill) => (
-              <div class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-3 py-2 sm:px-4 sm:py-3 text-center text-sm sm:text-base hover-lift hover:border-neutral-600 transition-colors">
+              <div class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-2 py-1.5 sm:px-3 sm:py-2 lg:px-4 lg:py-3 text-center text-xs sm:text-sm lg:text-base hover-lift hover:border-neutral-600 transition-colors">
                 {skill}
               </div>
             ))}
           </div>
         </div>
 
-        <div class="glass rounded-2xl p-4 sm:p-6 gradient-border">
-          <h3 class="heading-font mb-3 sm:mb-4 text-xl sm:text-2xl font-bold">{t('about.about')}</h3>
-          <p class="text-sm sm:text-base text-neutral-300 leading-relaxed">
+        <div class="glass rounded-2xl p-3 sm:p-4 lg:p-6 gradient-border">
+          <h3 class="heading-font mb-2 sm:mb-3 lg:mb-4 text-base sm:text-lg lg:text-2xl font-bold">{t('about.about')}</h3>
+          <p class="text-xs sm:text-sm lg:text-base text-neutral-300 leading-relaxed">
             {t('about.bioText')}
           </p>
         </div>

@@ -11,11 +11,11 @@ const currentLang = getLanguageFromUrl(Astro.url.pathname);
 
     <Container>
 
-        <div class="flex h-20 items-center justify-between">
+        <div class="flex h-14 sm:h-16 lg:h-20 items-center justify-between">
 
             <a
                 href={currentLang === "en" ? "/en" : "/"}
-                class="heading-font text-xl font-bold tracking-wide gradient-text hover-lift"
+                class="heading-font text-base sm:text-lg lg:text-xl font-bold tracking-wide gradient-text hover-lift"
             >
                 Simon Mészáros
             </a>

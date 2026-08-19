@@ -35,11 +35,11 @@ const { lang = "sk" } = Astro.props;
 
 <button
   id="mobile-menu-button"
-  class="lg:hidden p-2 text-neutral-400 hover:text-white transition"
+  class="lg:hidden p-3 text-white hover:text-yellow-400 transition bg-black/50 rounded-lg backdrop-blur-sm"
   aria-label="Toggle menu"
 >
   <svg
-    class="w-6 h-6"
+    class="w-8 h-8"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -55,26 +55,26 @@ const { lang = "sk" } = Astro.props;
 
 <div
   id="mobile-menu"
-  class="hidden fixed inset-0 top-20 z-40 bg-black bg-opacity-95 lg:hidden"
+  class="hidden fixed inset-0 z-50 bg-black/95 backdrop-blur-sm lg:hidden"
 >
-  <div class="flex flex-col space-y-6 p-6">
-    <a href={lang === "en" ? "/en#work" : "/#work"} class="text-lg font-semibold text-neutral-300 hover:text-white transition">
+  <div class="flex flex-col items-center justify-center h-full space-y-8">
+    <a href={lang === "en" ? "/en#work" : "/#work"} class="text-2xl font-semibold text-white hover:text-yellow-400 transition">
       {lang === "en" ? "Work" : "Práce"}
     </a>
-    <a href={lang === "en" ? "/en#about" : "/#about"} class="text-lg font-semibold text-neutral-300 hover:text-white transition">
+    <a href={lang === "en" ? "/en#about" : "/#about"} class="text-2xl font-semibold text-white hover:text-yellow-400 transition">
       {lang === "en" ? "About" : "O mne"}
     </a>
-    <a href={lang === "en" ? "/en#contact" : "/#contact"} class="text-lg font-semibold text-neutral-300 hover:text-white transition">
+    <a href={lang === "en" ? "/en#contact" : "/#contact"} class="text-2xl font-semibold text-white hover:text-yellow-400 transition">
       {lang === "en" ? "Contact" : "Kontakt"}
     </a>
   </div>
   <button
     id="mobile-menu-close"
-    class="absolute top-4 right-4 text-neutral-400 hover:text-white"
+    class="absolute top-6 right-6 p-2 text-white hover:text-yellow-400 transition"
     aria-label="Close menu"
   >
     <svg
-      class="w-6 h-6"
+      class="w-8 h-8"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"

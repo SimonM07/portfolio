@@ -1,0 +1,61 @@
+---
+// Touch gestures for mobile navigation
+---
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const threshold = 50; // Minimum swipe distance
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const diff = touchStartX - touchEndX;
+      
+      if (Math.abs(diff) > threshold) {
+        if (diff > 0) {
+          // Swipe left - navigate to next project
+          navigateProject('next');
+        } else {
+          // Swipe right - navigate to previous project
+          navigateProject('prev');
+        }
+      }
+    }
+
+    function navigateProject(direction: 'next' | 'prev') {
+      const projects = document.querySelectorAll('[data-project-slug]');
+      if (projects.length === 0) return;
+
+      const currentUrl = window.location.pathname;
+      const currentProject = Array.from(projects).find(el => el.getAttribute('href') === currentUrl);
+      
+      if (!currentProject) return;
+
+      const currentIndex = Array.from(projects).indexOf(currentProject);
+      let targetIndex;
+
+      if (direction === 'next') {
+        targetIndex = (currentIndex + 1) % projects.length;
+      } else {
+        targetIndex = (currentIndex - 1 + projects.length) % projects.length;
+      }
+
+      const targetProject = projects[targetIndex];
+      if (targetProject) {
+        const href = targetProject.getAttribute('href');
+        if (href) {
+          window.location.href = href;
+        }
+      }
+    }
+  });
+</script>

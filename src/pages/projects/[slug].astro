@@ -27,6 +27,8 @@ interface Project {
 }
 
 const { project } = Astro.props as { project: Project };
+const siteUrl = 'https://meszaros-portfolio.netlify.app';
+const fullUrl = `${siteUrl}/projects/${project.slug}`;
 const relatedProjects = projects
   .filter((p) => p.slug !== project.slug && p.category === project.category)
   .slice(0, 2);
@@ -38,8 +40,24 @@ const description = project.description ?? t('projectDetail.defaultDescription')
 const details = project.details ?? t('projectDetail.defaultDetails');
 const technologies = project.technologies ?? [];
 const gallery = project.gallery ?? [];
-const siteUrl = 'https://meszaros-portfolio.netlify.app';
 const fullImageUrl = project.image.startsWith('http') ? project.image : `${siteUrl}${project.image}`;
+
+// Structured data for CreativeWork
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": project.title,
+  "description": description,
+  "image": fullImageUrl,
+  "url": fullUrl,
+  "author": {
+    "@type": "Person",
+    "name": "Simon Mészáros"
+  },
+  "dateCreated": project.year.toString(),
+  "genre": project.category,
+  "keywords": technologies?.join(", ")
+};
 ---
 
 <BaseLayout 
@@ -48,6 +66,7 @@ const fullImageUrl = project.image.startsWith('http') ? project.image : `${siteU
   description={description}
   image={fullImageUrl}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <main class="pt-32">
     <Container>
       <!-- Header -->

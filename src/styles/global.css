@@ -115,6 +115,132 @@ html.light .border-white {
   border-color: #cbd5e1;
 }
 
+/* Better contrast for buttons in light mode */
+html.light button {
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light button:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+html.light a[href*="/"],
+html.light a[href^="#"] {
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light a[href*="/"]:hover,
+html.light a[href^="#"]:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Better contrast for links in light mode */
+html.light a {
+  color: #0f172a !important;
+}
+
+html.light a:hover {
+  color: #334155 !important;
+}
+
+/* Better contrast for text in light mode */
+html.light .text-neutral-300,
+html.light .text-neutral-400,
+html.light .text-neutral-500 {
+  color: #475569 !important;
+}
+
+/* Better contrast for badges and small text */
+html.light .text-xs,
+html.light .text-sm {
+  color: #1e293b !important;
+}
+
+/* Better contrast for card backgrounds */
+html.light .bg-black\/50,
+html.light .bg-black\/30,
+html.light .bg-black\/20 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+/* Better contrast for overlays */
+html.light .bg-black\/80,
+html.light .bg-black\/70,
+html.light .bg-black\/60 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+/* Better contrast for video overlays */
+html.light .bg-black\/30 {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+/* Better contrast for text on light backgrounds */
+html.light .text-white {
+  color: #0f172a !important;
+}
+
+html.light .text-neutral-200,
+html.light .text-neutral-300 {
+  color: #334155 !important;
+}
+
+/* Better contrast for hero elements */
+html.light .hero-badge {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html.light .hero-badge .w-2,
+html.light .hero-badge .h-2 {
+  background-color: #b45309 !important;
+}
+
+/* Better contrast for project cards */
+html.light .rounded-3xl {
+  border: 1px solid #cbd5e1 !important;
+}
+
+/* Better contrast for text in paragraphs */
+html.light p,
+html.light .text-base,
+html.light .text-lg {
+  color: #334155 !important;
+}
+
+/* Better contrast for headings */
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6 {
+  color: #0f172a !important;
+}
+
+/* Better contrast for icons */
+html.light svg {
+  color: #0f172a !important;
+}
+
+/* Better contrast for borders */
+html.light .border-white\/10,
+html.light .border-white\/20,
+html.light .border-white\/30,
+html.light .border-white\/40 {
+  border-color: #cbd5e1 !important;
+}
+
 html {
   scroll-behavior: smooth;
   font-size: 16px;

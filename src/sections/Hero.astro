@@ -12,7 +12,7 @@ const { lang = "sk" } = Astro.props;
 const t = (key: string) => getTranslation(lang, key);
 ---
 
-<section class="relative min-h-screen flex items-center pt-16 lg:pt-20 overflow-hidden">
+<section class="relative min-h-screen flex items-center pt-12 sm:pt-16 lg:pt-20 overflow-hidden">
   <!-- Background gradient effects -->
   <div class="absolute inset-0 overflow-hidden">
     <div class="absolute top-1/4 -left-20 w-96 h-96 bg-gradient-to-br from-yellow-400/20 to-transparent rounded-full blur-3xl animate-float"></div>
@@ -24,50 +24,52 @@ const t = (key: string) => getTranslation(lang, key);
       <!-- Left Content -->
       <div class="space-y-6 lg:space-y-8 animate-fade-up">
         <!-- Availability Badge -->
-        <div class="inline-flex items-center gap-2 rounded-full glass px-3 py-1.5 sm:px-4 sm:py-2 w-fit hover-lift hero-badge">
-          <div class="w-2 h-2 rounded-full bg-lime-400 animate-pulse-glow"></div>
+        <div class="inline-flex items-center gap-2 rounded-full glass px-2 py-1 sm:px-3 sm:py-1.5 w-fit hover-lift hero-badge">
+          <div class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-lime-400 animate-pulse-glow"></div>
           <span class="text-xs sm:text-sm font-medium">{t('hero.available')}</span>
         </div>
 
         <!-- Name -->
-        <div class="space-y-3 sm:space-y-4">
-          <h1 class="heading-font text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
+        <div class="space-y-2 sm:space-y-3">
+          <h1 class="heading-font text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
             <span class="gradient-text">{t('hero.title')}</span>
           </h1>
-          <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-neutral-400 font-light">
+          <p class="text-sm sm:text-base md:text-lg lg:text-xl text-neutral-400 font-light">
             {t('hero.subtitle')}
           </p>
         </div>
 
         <!-- Description -->
-        <p class="text-base sm:text-lg text-neutral-400 leading-relaxed max-w-md">
+        <p class="text-sm sm:text-base text-neutral-400 leading-relaxed max-w-sm">
           {t('hero.description')}
         </p>
 
         <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4">
-          <Button href={lang === "en" ? "/en#contact" : "/#contact"} variant="primary" class="glow-accent text-sm sm:text-base">
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-1 sm:pt-2">
+          <Button href={lang === "en" ? "/en#contact" : "/#contact"} variant="primary" class="glow-accent text-xs sm:text-sm px-4 py-2">
             {t('hero.cta1')}
           </Button>
-          <Button href={lang === "en" ? "/en#work" : "/#work"} variant="secondary" class="text-sm sm:text-base">
+          <Button href={lang === "en" ? "/en#work" : "/#work"} variant="secondary" class="text-xs sm:text-sm px-4 py-2">
             {t('hero.cta2')}
           </Button>
         </div>
       </div>
 
       <!-- Right - Profile Image -->
-      <div class="relative h-64 sm:h-80 md:h-96 lg:h-full min-h-64 sm:min-h-80 md:min-h-96 animate-scale-in" style="animation-delay: 0.3s;">
+      <div class="relative h-48 sm:h-64 md:h-80 lg:h-full min-h-48 sm:min-h-64 md:min-h-80 animate-scale-in hidden sm:block" style="animation-delay: 0.3s;">
         <!-- Main profile container with gradient border -->
         <div class="absolute inset-0 rounded-3xl overflow-hidden hover-lift transition-all duration-300">
           <!-- Gradient border effect -->
           <div class="absolute inset-0 bg-linear-to-br from-yellow-400/30 via-transparent to-cyan-400/30 rounded-3xl opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-          
+
           <!-- Profile image with overlay -->
           <div class="absolute inset-0 rounded-3xl overflow-hidden glass">
             <img
               src="/images/projects/profile.jpg"
               alt="Simon Mészáros"
               class="w-full h-full object-cover"
+              loading="eager"
+              fetchpriority="high"
             />
             <!-- Subtle dark overlay -->
             <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>

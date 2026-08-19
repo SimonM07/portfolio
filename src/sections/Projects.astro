@@ -2,6 +2,7 @@
 import Container from "../components/Container.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import SkeletonCard from "../components/SkeletonCard.astro";
 
 import { projects } from "../data/projects";
 import { getTranslation } from "../i18n/index";
@@ -17,7 +18,7 @@ const t = (key: string) => getTranslation(lang, key);
 
 <section
   id="work"
-  class="py-20 lg:py-32 relative overflow-hidden"
+  class="py-12 sm:py-16 lg:py-32 relative overflow-hidden"
 >
   <!-- Background decoration -->
   <div class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-cyan-400/10 to-transparent rounded-full blur-3xl"></div>
@@ -30,7 +31,7 @@ const t = (key: string) => getTranslation(lang, key);
       />
     </div>
 
-    <div class="grid gap-6 sm:gap-8 lg:grid-cols-2 mt-12 lg:mt-16">
+    <div class="grid gap-6 sm:gap-8 lg:grid-cols-2 mt-12 lg:mt-16" id="projects-grid">
 
       {projects
         .slice()
@@ -49,6 +50,20 @@ const t = (key: string) => getTranslation(lang, key);
       ))}
 
     </div>
+
+    <script>
+      // Simple loading state - fade in grid when ready
+      document.addEventListener('DOMContentLoaded', () => {
+        const grid = document.getElementById('projects-grid');
+        if (grid) {
+          grid.style.opacity = '0';
+          grid.style.transition = 'opacity 0.3s ease';
+          setTimeout(() => {
+            grid.style.opacity = '1';
+          }, 100);
+        }
+      });
+    </script>
 
   </Container>
 

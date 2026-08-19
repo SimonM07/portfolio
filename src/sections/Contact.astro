@@ -13,21 +13,21 @@ const { lang = "sk" } = Astro.props;
 const t = (key: string) => getTranslation(lang, key);
 ---
 
-<section id="contact" class="py-20 lg:py-32 relative overflow-hidden">
+<section id="contact" class="py-12 sm:py-16 lg:py-32 relative overflow-hidden">
   <!-- Background decoration -->
   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-yellow-400/10 to-cyan-400/10 rounded-full blur-3xl"></div>
-  
+
   <Container>
     <div class="scroll-reveal">
       <SectionTitle subtitle={t('contact.subtitle')} title={t('contact.title')} />
     </div>
 
-    <div class="mx-auto max-w-2xl mt-12 lg:mt-16">
-      <div class="rounded-2xl glass gradient-border p-6 sm:p-8 lg:p-12 scroll-reveal">
+    <div class="mx-auto max-w-2xl mt-8 sm:mt-12 lg:mt-16">
+      <div class="rounded-2xl glass gradient-border p-4 sm:p-6 lg:p-12 scroll-reveal">
         <form
           action="https://formspree.io/f/xljrngor"
           method="POST"
-          class="space-y-4 sm:space-y-6"
+          class="space-y-3 sm:space-y-4 lg:space-y-6"
           id="contact-form"
         >
           <!-- Hidden fields for Formspree -->
@@ -35,7 +35,7 @@ const t = (key: string) => getTranslation(lang, key);
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_next" value="" />
           <div>
-            <label for="name" class="block text-sm font-semibold mb-2">
+            <label for="name" class="block text-xs sm:text-sm font-semibold mb-1 sm:mb-2">
               {t('contact.name')}
             </label>
             <input
@@ -43,13 +43,13 @@ const t = (key: string) => getTranslation(lang, key);
               id="name"
               name="name"
               required
-              class="w-full rounded-lg border border-neutral-700 bg-neutral-950/80 px-4 py-3 text-white placeholder-neutral-500 focus:border-white focus:outline-none focus:ring-2 focus:ring-white/20"
+              class="w-full rounded-lg border border-neutral-700 bg-neutral-950/80 px-3 py-2 sm:px-4 sm:py-3 text-white placeholder-neutral-500 focus:border-white focus:outline-none focus:ring-2 focus:ring-white/20 text-sm sm:text-base"
               placeholder={t('contact.namePlaceholder')}
             />
           </div>
 
           <div>
-            <label for="email" class="block text-sm font-semibold mb-2">
+            <label for="email" class="block text-xs sm:text-sm font-semibold mb-1 sm:mb-2">
               {t('contact.email')}
             </label>
             <input
@@ -57,28 +57,28 @@ const t = (key: string) => getTranslation(lang, key);
               id="email"
               name="email"
               required
-              class="w-full rounded-lg border border-neutral-700 bg-neutral-950/80 px-4 py-3 text-white placeholder-neutral-500 focus:border-white focus:outline-none focus:ring-2 focus:ring-white/20"
+              class="w-full rounded-lg border border-neutral-700 bg-neutral-950/80 px-3 py-2 sm:px-4 sm:py-3 text-white placeholder-neutral-500 focus:border-white focus:outline-none focus:ring-2 focus:ring-white/20 text-sm sm:text-base"
               placeholder={t('contact.emailPlaceholder')}
             />
           </div>
 
           <div>
-            <label for="message" class="block text-sm font-semibold mb-2">
+            <label for="message" class="block text-xs sm:text-sm font-semibold mb-1 sm:mb-2">
               {t('contact.message')}
             </label>
             <textarea
               id="message"
               name="message"
               required
-              rows={6}
-              class="w-full rounded-lg border border-neutral-700 bg-neutral-950/80 px-4 py-3 text-white placeholder-neutral-500 focus:border-white focus:outline-none focus:ring-2 focus:ring-white/20 resize-none"
+              rows={4}
+              class="w-full rounded-lg border border-neutral-700 bg-neutral-950/80 px-3 py-2 sm:px-4 sm:py-3 text-white placeholder-neutral-500 focus:border-white focus:outline-none focus:ring-2 focus:ring-white/20 resize-none text-sm sm:text-base"
               placeholder={t('contact.messagePlaceholder')}
             ></textarea>
           </div>
 
           <button
             type="submit"
-            class="w-full rounded-lg bg-white px-6 py-3 font-semibold text-black transition hover:bg-neutral-200 hover-lift glow-accent"
+            class="w-full rounded-lg bg-white px-4 py-2 sm:px-6 sm:py-3 font-semibold text-black transition hover:bg-neutral-200 hover-lift glow-accent text-sm sm:text-base"
             id="submit-btn"
           >
             {t('contact.send')}
@@ -88,38 +88,38 @@ const t = (key: string) => getTranslation(lang, key);
           <div id="form-message" class="hidden"></div>
         </form>
 
-        <div class="mt-12 border-t border-neutral-800 pt-12">
-          <h3 class="heading-font mb-8 text-2xl font-bold">{t('contact.connect')}</h3>
-          <div class="grid gap-4 sm:grid-cols-2">
+        <div class="mt-6 sm:mt-8 lg:mt-12 border-t border-neutral-800 pt-6 sm:pt-8 lg:pt-12">
+          <h3 class="heading-font mb-4 sm:mb-6 lg:mb-8 text-lg sm:text-xl lg:text-2xl font-bold">{t('contact.connect')}</h3>
+          <div class="grid gap-3 sm:gap-4 sm:grid-cols-2">
             <a
               href="tel:+421915382092"
-              class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-6 py-4 transition hover:border-neutral-700 hover:bg-neutral-800 hover-lift group"
+              class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-4 py-3 sm:px-6 sm:py-4 transition hover:border-neutral-700 hover:bg-neutral-800 hover-lift group"
             >
-              <p class="text-sm text-neutral-500 mb-1 group-hover:text-neutral-400">Phone</p>
-              <p class="font-semibold group-hover:text-white">+421 915 382 092</p>
+              <p class="text-xs sm:text-sm text-neutral-500 mb-1 group-hover:text-neutral-400">Phone</p>
+              <p class="text-sm sm:font-semibold group-hover:text-white">+421 915 382 092</p>
             </a>
             <a
               href="mailto:simon07meszaros@gmail.com"
-              class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-6 py-4 transition hover:border-neutral-700 hover:bg-neutral-800 hover-lift group"
+              class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-4 py-3 sm:px-6 sm:py-4 transition hover:border-neutral-700 hover:bg-neutral-800 hover-lift group"
             >
-              <p class="text-sm text-neutral-500 mb-1 group-hover:text-neutral-400">{t('contact.emailLabel')}</p>
-              <p class="font-semibold group-hover:text-white">simon07meszaros@gmail.com</p>
+              <p class="text-xs sm:text-sm text-neutral-500 mb-1 group-hover:text-neutral-400">{t('contact.emailLabel')}</p>
+              <p class="text-sm sm:font-semibold group-hover:text-white">simon07meszaros@gmail.com</p>
             </a>
             <a
               href="https://instagram.com/simonvideography"
               target="_blank"
-              class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-6 py-4 transition hover:border-neutral-700 hover:bg-neutral-800 hover-lift group"
+              class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-4 py-3 sm:px-6 sm:py-4 transition hover:border-neutral-700 hover:bg-neutral-800 hover-lift group"
             >
-              <p class="text-sm text-neutral-500 mb-1 group-hover:text-neutral-400">{t('contact.instagramLabel')}</p>
-              <p class="font-semibold group-hover:text-white">@simonvideography</p>
+              <p class="text-xs sm:text-sm text-neutral-500 mb-1 group-hover:text-neutral-400">{t('contact.instagramLabel')}</p>
+              <p class="text-sm sm:font-semibold group-hover:text-white">@simonvideography</p>
             </a>
             <a
               href="https://linkedin.com/in/SimonMeszaros"
               target="_blank"
-              class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-6 py-4 transition hover:border-neutral-700 hover:bg-neutral-800 hover-lift group"
+              class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-4 py-3 sm:px-6 sm:py-4 transition hover:border-neutral-700 hover:bg-neutral-800 hover-lift group"
             >
-              <p class="text-sm text-neutral-500 mb-1 group-hover:text-neutral-400">{t('contact.linkedinLabel')}</p>
-              <p class="font-semibold group-hover:text-white">Simon Mészáros</p>
+              <p class="text-xs sm:text-sm text-neutral-500 mb-1 group-hover:text-neutral-400">{t('contact.linkedinLabel')}</p>
+              <p class="text-sm sm:font-semibold group-hover:text-white">Simon Mészáros</p>
             </a>
           </div>
         </div>
