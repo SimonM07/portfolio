@@ -6,28 +6,70 @@ interface Props {
 const { lang = "sk" } = Astro.props;
 ---
 
+<style>
+  #mobile-menu {
+    transition: transform 0.3s ease-in-out;
+    background-color: #000000 !important;
+  }
+
+  #mobile-menu.hidden {
+    transform: translateX(100%);
+  }
+
+  #mobile-menu:not(.hidden) {
+    transform: translateX(0);
+  }
+
+  .menu-overlay {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-link {
+    transition: all 0.2s ease;
+  }
+
+  .nav-link:hover {
+    transform: translateX(4px);
+  }
+</style>
+
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const menuButton = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
+    const menuOverlay = document.getElementById("menu-overlay");
     const closeButton = document.getElementById("mobile-menu-close");
     const navLinks = document.querySelectorAll("#mobile-menu a");
 
-    if (menuButton && mobileMenu) {
+    if (menuButton && mobileMenu && menuOverlay) {
       menuButton.addEventListener("click", () => {
-        mobileMenu.classList.toggle("hidden");
+        mobileMenu.classList.remove("hidden");
+        menuOverlay.classList.add("active");
+        document.body.style.overflow = "hidden";
       });
 
+      const closeMenu = () => {
+        mobileMenu.classList.add("hidden");
+        menuOverlay.classList.remove("active");
+        document.body.style.overflow = "";
+      };
+
       if (closeButton) {
-        closeButton.addEventListener("click", () => {
-          mobileMenu.classList.add("hidden");
-        });
+        closeButton.addEventListener("click", closeMenu);
       }
 
+      menuOverlay.addEventListener("click", closeMenu);
+
       navLinks.forEach((link) => {
-        link.addEventListener("click", () => {
-          mobileMenu.classList.add("hidden");
-        });
+        link.addEventListener("click", closeMenu);
       });
     }
   });
@@ -35,11 +77,11 @@ const { lang = "sk" } = Astro.props;
 
 <button
   id="mobile-menu-button"
-  class="lg:hidden p-3 text-white hover:text-yellow-400 transition bg-black/50 rounded-lg backdrop-blur-sm"
+  class="lg:hidden p-2 text-white hover:text-yellow-400 transition relative z-50"
   aria-label="Toggle menu"
 >
   <svg
-    class="w-8 h-8"
+    class="w-6 h-6"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -53,38 +95,59 @@ const { lang = "sk" } = Astro.props;
   </svg>
 </button>
 
+<!-- Overlay -->
+<div
+  id="menu-overlay"
+  class="menu-overlay fixed inset-0 bg-black/50 z-40 lg:hidden"
+></div>
+
+<!-- Slide-in menu -->
 <div
   id="mobile-menu"
-  class="hidden fixed inset-0 z-50 bg-black/95 backdrop-blur-sm lg:hidden"
+  class="hidden fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-black z-[100] lg:hidden shadow-2xl border-l border-neutral-800"
 >
-  <div class="flex flex-col items-center justify-center h-full space-y-8">
-    <a href={lang === "en" ? "/en#work" : "/#work"} class="text-2xl font-semibold text-white hover:text-yellow-400 transition">
-      {lang === "en" ? "Work" : "Práce"}
-    </a>
-    <a href={lang === "en" ? "/en#about" : "/#about"} class="text-2xl font-semibold text-white hover:text-yellow-400 transition">
-      {lang === "en" ? "About" : "O mne"}
-    </a>
-    <a href={lang === "en" ? "/en#contact" : "/#contact"} class="text-2xl font-semibold text-white hover:text-yellow-400 transition">
-      {lang === "en" ? "Contact" : "Kontakt"}
-    </a>
+  <div class="flex flex-col h-full">
+    <!-- Header -->
+    <div class="flex items-center justify-between p-4 border-b border-neutral-800">
+      <span class="text-lg font-bold text-white">Menu</span>
+      <button
+        id="mobile-menu-close"
+        class="p-2 text-white hover:text-yellow-400 transition rounded-lg hover:bg-neutral-800"
+        aria-label="Close menu"
+      >
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navigation links -->
+    <div class="flex-1 flex flex-col py-6 px-4 space-y-1">
+      <a href={lang === "en" ? "/en#work" : "/#work"} class="nav-link text-base font-medium text-white hover:text-yellow-400 py-2 px-3 rounded-lg hover:bg-neutral-800 transition">
+        {lang === "en" ? "Work" : "Práce"}
+      </a>
+      <a href={lang === "en" ? "/en#about" : "/#about"} class="nav-link text-base font-medium text-white hover:text-yellow-400 py-2 px-3 rounded-lg hover:bg-neutral-800 transition">
+        {lang === "en" ? "About" : "O mne"}
+      </a>
+      <a href={lang === "en" ? "/en#contact" : "/#contact"} class="nav-link text-base font-medium text-white hover:text-yellow-400 py-2 px-3 rounded-lg hover:bg-neutral-800 transition">
+        {lang === "en" ? "Contact" : "Kontakt"}
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="p-4 border-t border-neutral-800">
+      <p class="text-xs text-neutral-500">Simon Mészáros</p>
+      <p class="text-[10px] text-neutral-600 mt-0.5">Video Production</p>
+    </div>
   </div>
-  <button
-    id="mobile-menu-close"
-    class="absolute top-6 right-6 p-2 text-white hover:text-yellow-400 transition"
-    aria-label="Close menu"
-  >
-    <svg
-      class="w-8 h-8"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M6 18L18 6M6 6l12 12"
-      ></path>
-    </svg>
-  </button>
 </div>

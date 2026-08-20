@@ -24,7 +24,6 @@ const { title, category, year, image, video, slug } = Astro.props
                   class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-105 video-poster"
                   loading="lazy"
                   decoding="async"
-                  onerror="this.style.display='none'; this.parentElement.querySelector('.video-error')?.classList.remove('hidden');"
                 />
 
                 <video
@@ -38,15 +37,10 @@ const { title, category, year, image, video, slug } = Astro.props
                   webkit-playsinline
                   preload="auto"
                   data-autoplay
-                  onerror="this.style.display='none'; this.parentElement.querySelector('.video-poster').style.opacity = '1'; this.parentElement.querySelector('.video-error')?.classList.remove('hidden');"
                 />
 
-                <div class="video-error hidden absolute inset-0 flex items-center justify-center bg-black/80">
-                  <p class="text-white text-sm">Video unavailable</p>
-                </div>
-
                 <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-100 md:opacity-0 transition duration-300 pointer-events-none md:pointer-events-auto">
-                  <div class="flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-full border border-white/40 bg-black/50 text-white shadow-lg cursor-pointer hover:bg-black/70 transition" data-play-btn>
+                  <div class="hidden md:flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-full border border-white/40 bg-black/50 text-white shadow-lg cursor-pointer hover:bg-black/70 transition" data-play-btn>
                     <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
                     </svg>

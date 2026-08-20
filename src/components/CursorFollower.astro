@@ -69,18 +69,36 @@
       mouseY = e.clientY;
     });
     
-    function animate() {
+    let animationId: number;
+    let lastTime = 0;
+    const targetFPS = 30;
+    const frameInterval = 1000 / targetFPS;
+
+    function animate(currentTime: number) {
+      animationId = requestAnimationFrame(animate);
+
+      const deltaTime = currentTime - lastTime;
+      if (deltaTime < frameInterval) return;
+      lastTime = currentTime - (deltaTime % frameInterval);
+
       cursorX += (mouseX - cursorX) * 0.4;
       cursorY += (mouseY - cursorY) * 0.4;
-      
+
       if (cursor) {
         cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
       }
-      
-      requestAnimationFrame(animate);
     }
-    
-    animate();
+
+    animate(0);
+
+    // Cleanup when page is hidden to save memory
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationId);
+      } else {
+        animate(0);
+      }
+    });
     
     // Add hover effect on interactive elements
     const interactiveElements = document.querySelectorAll('a, button, .hover-lift');
