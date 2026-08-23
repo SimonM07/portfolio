@@ -1,0 +1,86 @@
+---
+// Interactive background that responds to mouse movement - enhanced visibility
+---
+
+<div id="interactive-bg" class="interactive-bg"></div>
+
+<style>
+  .interactive-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.8;
+    background: 
+      radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(255, 214, 10, 0.08) 0%, 
+        rgba(0, 217, 255, 0.05) 20%, 
+        transparent 50%),
+      radial-gradient(circle at calc(100% - var(--mouse-x, 50%)) calc(100% - var(--mouse-y, 50%)), 
+        rgba(0, 217, 255, 0.06) 0%, 
+        transparent 40%);
+    transition: opacity 0.3s ease;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Check for reduced motion preference or mobile device
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.innerWidth < 1024; // md breakpoint - show on tablet
+    
+    if (prefersReducedMotion || isMobile) {
+      const bg = document.getElementById('interactive-bg');
+      if (bg) bg.remove();
+      return;
+    }
+
+    const bg = document.getElementById('interactive-bg');
+    if (!bg) return;
+
+    let mouseX = 50;
+    let mouseY = 50;
+    let currentX = 50;
+    let currentY = 50;
+    let lastTime = 0;
+    const targetFPS = 15; // Higher for smoother movement
+    const frameInterval = 1000 / targetFPS;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth) * 100;
+      mouseY = (e.clientY / window.innerHeight) * 100;
+    }, { passive: true });
+
+    function animate(currentTime: number) {
+      const deltaTime = currentTime - lastTime;
+      if (deltaTime < frameInterval) {
+        requestAnimationFrame(animate);
+        return;
+      }
+      lastTime = currentTime - (deltaTime % frameInterval);
+
+      // Smooth lerp
+      currentX += (mouseX - currentX) * 0.15;
+      currentY += (mouseY - currentY) * 0.15;
+
+      bg.style.setProperty('--mouse-x', `${currentX}%`);
+      bg.style.setProperty('--mouse-y', `${currentY}%`);
+
+      requestAnimationFrame(animate);
+    }
+
+    animate(0);
+
+    // Cleanup on visibility change
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        bg.style.opacity = '0';
+      } else {
+        bg.style.opacity = '0.8';
+      }
+    });
+  });
+</script>

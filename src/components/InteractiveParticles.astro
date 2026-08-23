@@ -16,7 +16,7 @@
   function initParticles() {
     // Check for reduced motion preference or mobile device
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 1024; // md breakpoint
+    const isMobile = window.innerWidth < 1024; // md breakpoint - show on tablet
     
     if (prefersReducedMotion || isMobile) {
       const container = document.getElementById('particles-container');
@@ -54,17 +54,17 @@
       return {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
         size: Math.random() * 2 + 1,
-        alpha: Math.random() * 0.5 + 0.2
+        alpha: Math.random() * 0.3 + 0.2
       };
     }
 
     function init() {
       resize();
       particles = [];
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 40; i++) {
         particles.push(createParticle());
       }
     }
@@ -121,7 +121,7 @@
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(0, 217, 255, ${0.1 * (1 - dist / 100)})`;
+            ctx.strokeStyle = `rgba(0, 217, 255, ${0.08 * (1 - dist / 100)})`;
             ctx.stroke();
           }
         });

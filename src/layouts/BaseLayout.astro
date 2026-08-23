@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import Navbar from "../components/layout/Navbar.astro";
-import CursorFollower from "../components/CursorFollower.astro";
+import InteractiveBackground from "../components/InteractiveBackground.astro";
 import InteractiveParticles from "../components/InteractiveParticles.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import ScrollToTop from "../components/ScrollToTop.astro";
@@ -67,7 +67,7 @@ const fullUrl = `${siteUrl}${Astro.url.pathname}`;
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-LJ1PLX3TWZ"></script>
-  <script>
+  <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -87,9 +87,16 @@ const fullUrl = `${siteUrl}${Astro.url.pathname}`;
     "knowsAbout": ["Video Editing", "Premiere Pro", "After Effects", "Motion Graphics", "Color Grading", "Film Production"]
   })} />
 
-  <!-- Favicon -->
+  <!-- Favicon - Circular PNG favicons -->
+  <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/favicon-16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="/favicon-48.png" sizes="48x48" />
+  <link rel="icon" type="image/png" href="/favicon-64.png" sizes="64x64" />
+  <link rel="icon" type="image/png" href="/favicon-128.png" sizes="128x128" />
+  <link rel="icon" type="image/png" href="/favicon-256.png" sizes="256x256" />
   <link rel="icon" type="image/png" href="/favicon.png" />
-  <link rel="apple-touch-icon" href="/favicon.png" sizes="512x512" />
+  <link rel="apple-touch-icon" href="/favicon-256.png" sizes="256x256" />
+
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -102,8 +109,9 @@ const fullUrl = `${siteUrl}${Astro.url.pathname}`;
 
 <body class="bg-black text-white">
 
+  <InteractiveBackground />
   <InteractiveParticles />
-  <CursorFollower />
+
   <ThemeToggle />
   <ScrollToTop />
   <TouchGestures />

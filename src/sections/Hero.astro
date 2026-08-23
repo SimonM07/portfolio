@@ -45,7 +45,7 @@ const t = (key: string) => getTranslation(lang, key);
         </p>
 
         <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2 sm:pt-3">
+        <div class="flex flex-row gap-2 sm:gap-3 pt-2 sm:pt-3">
           <Button href={lang === "en" ? "/en#contact" : "/#contact"} variant="primary" class="glow-accent text-xs sm:text-sm px-3 py-2 sm:px-4 sm:py-2">
             {t('hero.cta1')}
           </Button>
