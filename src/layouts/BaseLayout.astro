@@ -6,6 +6,7 @@ import InteractiveParticles from "../components/InteractiveParticles.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import ScrollToTop from "../components/ScrollToTop.astro";
 import TouchGestures from "../components/TouchGestures.astro";
+import SnakeGame from "../components/SnakeGame.astro";
 
 // Type declarations for GA4
 declare global {
@@ -105,6 +106,7 @@ const fullUrl = `${siteUrl}${Astro.url.pathname}`;
 
   <InteractiveBackground />
   <InteractiveParticles />
+  <SnakeGame />
 
   <ThemeToggle />
   <ScrollToTop />

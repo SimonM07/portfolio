@@ -58,7 +58,7 @@ const t = (key: string) => getTranslation(lang, key);
       <!-- Right - Profile Image -->
       <div class="relative h-40 sm:h-48 md:h-64 lg:h-full min-h-40 sm:min-h-48 md:min-h-64 animate-scale-in" style="animation-delay: 0.3s;">
         <!-- Main profile container with gradient border -->
-        <div class="absolute inset-0 rounded-3xl overflow-hidden hover-lift transition-all duration-300">
+        <div id="profile-container" class="absolute inset-0 rounded-3xl overflow-hidden hover-lift transition-all duration-300 cursor-pointer">
           <!-- Gradient border effect -->
           <div class="absolute inset-0 bg-linear-to-br from-yellow-400/30 via-transparent to-cyan-400/30 rounded-3xl opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
 
@@ -90,3 +90,37 @@ const t = (key: string) => getTranslation(lang, key);
     </a>
   </Container>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const profileContainer = document.getElementById('profile-container');
+    let clickCount = 0;
+    let clickTimeout: number | null = null;
+
+    if (profileContainer) {
+      profileContainer.addEventListener('click', () => {
+        clickCount++;
+        
+        // Reset count if no clicks for 2 seconds
+        if (clickTimeout) {
+          clearTimeout(clickTimeout);
+        }
+        
+        clickTimeout = window.setTimeout(() => {
+          clickCount = 0;
+        }, 2000);
+
+        // Open snake game after 3 clicks
+        if (clickCount === 3) {
+          if ((window as any).openSnakeGame) {
+            (window as any).openSnakeGame();
+          }
+          clickCount = 0;
+          if (clickTimeout) {
+            clearTimeout(clickTimeout);
+          }
+        }
+      });
+    }
+  });
+</script>

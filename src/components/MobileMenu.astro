@@ -8,8 +8,8 @@ const { lang = "sk" } = Astro.props;
 
 <style>
   #mobile-menu {
-    transition: transform 0.3s ease-in-out;
-    background-color: #000000 !important;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
   }
 
   #mobile-menu.hidden {
@@ -22,9 +22,10 @@ const { lang = "sk" } = Astro.props;
 
   .menu-overlay {
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
     pointer-events: none;
-    background-color: rgba(0, 0, 0, 0.5) !important;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(20, 20, 20, 0.8) 100%);
+    backdrop-filter: blur(8px);
   }
 
   .menu-overlay.active {
@@ -33,11 +34,37 @@ const { lang = "sk" } = Astro.props;
   }
 
   .nav-link {
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 214, 10, 0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .nav-link:hover::before {
+    left: 100%;
   }
 
   .nav-link:hover {
-    transform: translateX(4px);
+    transform: translateX(8px);
+    border-color: rgba(255, 214, 10, 0.3);
+    background: linear-gradient(135deg, rgba(255, 214, 10, 0.1) 0%, rgba(255, 214, 10, 0.05) 100%);
+  }
+
+  .menu-footer {
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(0, 217, 255, 0.05) 100%);
+    border-top: 1px solid rgba(0, 217, 255, 0.2);
   }
 </style>
 
@@ -98,25 +125,28 @@ const { lang = "sk" } = Astro.props;
 <!-- Overlay -->
 <div
   id="menu-overlay"
-  class="menu-overlay fixed inset-0 bg-black/50 z-40 lg:hidden"
+  class="menu-overlay fixed inset-0 z-40 lg:hidden"
 ></div>
 
 <!-- Slide-in menu -->
 <div
   id="mobile-menu"
-  class="hidden fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-black z-[100] lg:hidden shadow-2xl border-l border-neutral-800"
+  class="hidden fixed top-0 right-0 h-full w-80 max-w-[85vw] z-[100] lg:hidden shadow-2xl border-l border-neutral-800 rounded-tl-3xl rounded-bl-3xl"
 >
-  <div class="flex flex-col h-full">
+  <div class="flex flex-col h-full bg-gradient-to-b from-neutral-900 to-black">
     <!-- Header -->
-    <div class="flex items-center justify-between p-4 border-b border-neutral-800">
-      <span class="text-lg font-bold text-white">Menu</span>
+    <div class="flex items-center justify-between p-6 border-b border-neutral-800">
+      <div>
+        <span class="text-xl font-bold text-white tracking-wide">Menu</span>
+        <p class="text-xs text-neutral-400 mt-1">Simon Mészáros</p>
+      </div>
       <button
         id="mobile-menu-close"
-        class="p-2 text-white hover:text-yellow-400 transition rounded-lg hover:bg-neutral-800"
+        class="p-3 text-white hover:text-yellow-400 transition rounded-xl hover:bg-neutral-700"
         aria-label="Close menu"
       >
         <svg
-          class="w-5 h-5"
+          class="w-6 h-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -132,22 +162,31 @@ const { lang = "sk" } = Astro.props;
     </div>
 
     <!-- Navigation links -->
-    <div class="flex-1 flex flex-col py-6 px-4 space-y-1">
-      <a href={lang === "en" ? "/en#work" : "/#work"} class="nav-link text-base font-medium text-white hover:text-yellow-400 py-2 px-3 rounded-lg hover:bg-neutral-800 transition">
-        {lang === "en" ? "Work" : "Práce"}
+    <div class="flex-1 flex flex-col py-8 px-6 space-y-4">
+      <a href={lang === "en" ? "/en#work" : "/#work"} class="nav-link text-lg font-semibold text-white py-4 px-5 rounded-xl">
+        <div class="flex items-center justify-between">
+          <span>{lang === "en" ? "Work" : "Práce"}</span>
+          <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </div>
       </a>
-      <a href={lang === "en" ? "/en#about" : "/#about"} class="nav-link text-base font-medium text-white hover:text-yellow-400 py-2 px-3 rounded-lg hover:bg-neutral-800 transition">
-        {lang === "en" ? "About" : "O mne"}
+      <a href={lang === "en" ? "/en#about" : "/#about"} class="nav-link text-lg font-semibold text-white py-4 px-5 rounded-xl">
+        <div class="flex items-center justify-between">
+          <span>{lang === "en" ? "About" : "O mne"}</span>
+          <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </div>
       </a>
-      <a href={lang === "en" ? "/en#contact" : "/#contact"} class="nav-link text-base font-medium text-white hover:text-yellow-400 py-2 px-3 rounded-lg hover:bg-neutral-800 transition">
-        {lang === "en" ? "Contact" : "Kontakt"}
+      <a href={lang === "en" ? "/en#contact" : "/#contact"} class="nav-link text-lg font-semibold text-white py-4 px-5 rounded-xl">
+        <div class="flex items-center justify-between">
+          <span>{lang === "en" ? "Contact" : "Kontakt"}</span>
+          <svg class="w-5 h-5 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </div>
       </a>
-    </div>
-
-    <!-- Footer -->
-    <div class="p-4 border-t border-neutral-800">
-      <p class="text-xs text-neutral-500">Simon Mészáros</p>
-      <p class="text-[10px] text-neutral-600 mt-0.5">Video Production</p>
     </div>
   </div>
 </div>
