@@ -99,7 +99,7 @@
       }
 
       function draw() {
-        const { ctx, canvas, snake, food, gridSize, score, isPaused } = snakeGame!;
+        const { ctx, canvas, snake, food, gridSize, score } = snakeGame!;
         
         if (!ctx || !canvas) return;
         
@@ -124,14 +124,6 @@
           ctx.stroke();
         }
 
-        if (isPaused) {
-          ctx.fillStyle = '#fff';
-          ctx.font = '30px Arial';
-          ctx.textAlign = 'center';
-          ctx.fillText('PAUSED', canvas.width / 2, canvas.height / 2);
-          return;
-        }
-
         // Draw food (yellow square with glow)
         ctx.shadowColor = '#ffd600';
         ctx.shadowBlur = 10;
@@ -153,8 +145,6 @@
       function update() {
         const { snake, direction, nextDirection, food, gridSize, score, highScore } = snakeGame!;
         
-        if (snakeGame!.isPaused) return;
-
         // Update direction
         snakeGame!.direction = nextDirection;
 
@@ -227,8 +217,8 @@
       document.addEventListener('keydown', (e) => {
         if (!snakeGame) return;
         
-        // Only process arrow keys when game is visible
-        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) {
+        // Only process keys when game is visible
+        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd', 'W', 'A', 'S', 'D'].includes(e.key)) {
           if (container.classList.contains('hidden')) return;
           e.preventDefault();
         }
@@ -237,29 +227,32 @@
 
         switch(e.key) {
           case 'ArrowUp':
+          case 'w':
+          case 'W':
             if (direction.y !== 1) nextDirection.y = -1, nextDirection.x = 0;
             break;
           case 'ArrowDown':
+          case 's':
+          case 'S':
             if (direction.y !== -1) nextDirection.y = 1, nextDirection.x = 0;
             break;
           case 'ArrowLeft':
+          case 'a':
+          case 'A':
             if (direction.x !== 1) nextDirection.x = -1, nextDirection.y = 0;
             break;
           case 'ArrowRight':
+          case 'd':
+          case 'D':
             if (direction.x !== -1) nextDirection.x = 1, nextDirection.y = 0;
-            break;
-          case ' ':
-            if (!container.classList.contains('hidden')) {
-              snakeGame.isPaused = !snakeGame.isPaused;
-            }
             break;
         }
       });
 
-      // Touch controls
+      // Touch controls - directional swipes
       let touchStartX = 0;
       let touchStartY = 0;
-      const minSwipeDistance = 30; // Minimum swipe distance to trigger movement
+      const minSwipeDistance = 50; // Minimum swipe distance to trigger movement
 
       canvas.addEventListener('touchstart', (e) => {
         e.preventDefault();
@@ -284,15 +277,16 @@
         
         const { direction, nextDirection } = snakeGame!;
         
+        // Determine swipe direction based on which axis has larger movement
         if (Math.abs(dx) > Math.abs(dy)) {
-          // Horizontal swipe
+          // Horizontal swipe - move left/right
           if (dx > 0 && direction.x !== -1) {
             nextDirection.x = 1, nextDirection.y = 0;
           } else if (dx < 0 && direction.x !== 1) {
             nextDirection.x = -1, nextDirection.y = 0;
           }
         } else {
-          // Vertical swipe
+          // Vertical swipe - move up/down
           if (dy > 0 && direction.y !== -1) {
             nextDirection.y = 1, nextDirection.x = 0;
           } else if (dy < 0 && direction.y !== 1) {

@@ -14,10 +14,9 @@ const basePath = isEnglishPage ? pathname.slice(3) : pathname; // Remove /en pre
 const finalPath = basePath || '/'; // Default to / if empty
 ---
 
-<div class="relative" id="language-switcher">
+<div class="relative language-switcher">
   <button
-    id="language-button"
-    class="flex items-center gap-2 rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm font-medium text-white hover:bg-neutral-800 hover:border-neutral-600 hover-lift transition-all duration-300 shadow-lg shadow-yellow-400/20"
+    class="language-button flex items-center gap-2 rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm font-medium text-white hover:bg-neutral-800 hover:border-neutral-600 hover-lift transition-all duration-300 shadow-lg shadow-yellow-400/20"
     aria-label="Select language"
   >
     <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -27,7 +26,7 @@ const finalPath = basePath || '/'; // Default to / if empty
   </button>
 
   <!-- Language dropdown -->
-  <div id="language-dropdown" class="absolute right-0 mt-2 w-32 rounded-lg border border-neutral-700 bg-neutral-900 shadow-lg opacity-0 invisible transition-all duration-300 z-50">
+  <div class="language-dropdown absolute right-0 mt-2 w-32 rounded-lg border border-neutral-700 bg-neutral-900 shadow-lg opacity-0 invisible transition-all duration-300 z-50">
     {Object.entries(languages).map(([code, name]) => {
       // Generate correct href based on current language and target language
       let href = '';
@@ -57,30 +56,67 @@ const finalPath = basePath || '/'; // Default to / if empty
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const langButton = document.getElementById('language-button');
-    const langDropdown = document.getElementById('language-dropdown');
-    
-    if (langButton && langDropdown) {
-      // Click to toggle (works on both mobile and desktop)
+    const switchers = document.querySelectorAll('.language-switcher');
+
+    if (!switchers.length) {
+      return;
+    }
+
+    const closeDropdown = (dropdown: Element | null) => {
+      if (!dropdown) return;
+      dropdown.classList.remove('opacity-100', 'visible');
+      dropdown.classList.add('opacity-0', 'invisible');
+    };
+
+    const openDropdown = (dropdown: Element | null) => {
+      if (!dropdown) return;
+      dropdown.classList.remove('opacity-0', 'invisible');
+      dropdown.classList.add('opacity-100', 'visible');
+    };
+
+    switchers.forEach((switcher) => {
+      const langButton = switcher.querySelector('.language-button');
+      const langDropdown = switcher.querySelector('.language-dropdown');
+
+      if (!langButton || !langDropdown) {
+        return;
+      }
+
       langButton.addEventListener('click', (e) => {
         e.stopPropagation();
+
         const isVisible = langDropdown.classList.contains('opacity-100');
+
+        switchers.forEach((item) => {
+          const dropdown = item.querySelector('.language-dropdown');
+          if (dropdown && dropdown !== langDropdown) {
+            closeDropdown(dropdown);
+          }
+        });
+
         if (isVisible) {
-          langDropdown.classList.remove('opacity-100', 'visible');
-          langDropdown.classList.add('opacity-0', 'invisible');
+          closeDropdown(langDropdown);
         } else {
-          langDropdown.classList.remove('opacity-0', 'invisible');
-          langDropdown.classList.add('opacity-100', 'visible');
+          openDropdown(langDropdown);
         }
       });
-      
-      // Close when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!langButton.contains(e.target as Node) && !langDropdown.contains(e.target as Node)) {
-          langDropdown.classList.remove('opacity-100', 'visible');
-          langDropdown.classList.add('opacity-0', 'invisible');
+    });
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+
+      switchers.forEach((switcher) => {
+        const langButton = switcher.querySelector('.language-button');
+        const langDropdown = switcher.querySelector('.language-dropdown');
+
+        if (!langButton || !langDropdown) {
+          return;
+        }
+
+        if (!switcher.contains(target)) {
+          closeDropdown(langDropdown);
         }
       });
-    }
+    });
   });
 </script>

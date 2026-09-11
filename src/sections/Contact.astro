@@ -187,7 +187,7 @@ const t = (key: string) => getTranslation(lang, key);
           return;
         }
 
-        const data = await response.json();
+        const data = await response.json().catch(() => null);
 
         if (response.ok) {
           // Success
@@ -200,7 +200,7 @@ const t = (key: string) => getTranslation(lang, key);
           // Error
           formMessage.classList.remove('hidden');
           formMessage.className = 'mt-4 p-4 rounded-lg bg-red-500/20 border border-red-500/50 text-red-400';
-          formMessage.textContent = data.error || currentMessages.error;
+          formMessage.textContent = data?.error || currentMessages.error;
         }
       } catch (error) {
         // Network error
