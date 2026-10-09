@@ -8,14 +8,6 @@ import ScrollToTop from "../components/ScrollToTop.astro";
 import TouchGestures from "../components/TouchGestures.astro";
 import SnakeGame from "../components/SnakeGame.astro";
 
-// Type declarations for GA4
-declare global {
-  interface Window {
-    dataLayer: any[];
-    gtag: (...args: any[]) => void;
-  }
-}
-
 interface Props {
   title?: string;
   lang?: string;
@@ -68,16 +60,6 @@ const fullUrl = `${siteUrl}${Astro.url.pathname}`;
   
   <!-- Canonical URL -->
   <link rel="canonical" href={fullUrl} />
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LJ1PLX3TWZ"></script>
-  <script is:inline>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-LJ1PLX3TWZ');
-  </script>
 
   <!-- Structured Data - Person -->
   <script type="application/ld+json" set:html={JSON.stringify({

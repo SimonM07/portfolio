@@ -1,24 +1,25 @@
 ---
 interface Props {
   href?: string;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "tertiary";
   class?: string;
 }
 
 const { href, variant = "primary", class: className }: Props = Astro.props;
 const baseStyles = "inline-flex items-center rounded-lg px-4 py-2 sm:px-6 sm:py-3 font-semibold transition";
-const variants: Record<"primary" | "secondary", string> = {
+const variants: Record<"primary" | "secondary" | "tertiary", string> = {
   primary: "bg-white text-black hover:bg-neutral-200 dark:bg-white dark:text-black dark:hover:bg-neutral-200",
   secondary: "border border-white text-white hover:bg-white hover:text-black dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black",
+  tertiary: "bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-700",
 };
 ---
 
 {href ? (
-  <a href={href} class={`${baseStyles} ${variants[variant as "primary" | "secondary"]} ${className || ""}`}>
+  <a href={href} class={`${baseStyles} ${variants[variant as "primary" | "secondary" | "tertiary"]} ${className || ""}`}>
     <slot />
   </a>
 ) : (
-  <button class={`${baseStyles} ${variants[variant as "primary" | "secondary"]} ${className || ""}`}>
+  <button class={`${baseStyles} ${variants[variant as "primary" | "secondary" | "tertiary"]} ${className || ""}`}>
     <slot />
   </button>
 )}

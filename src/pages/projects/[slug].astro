@@ -19,7 +19,7 @@ interface Project {
   category: string;
   year: number;
   image: string;
-  video: string;
+  video?: string;
   description?: string;
   details?: string;
   technologies?: string[];
@@ -67,6 +67,11 @@ const structuredData = {
   image={fullImageUrl}
 >
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  
+  <!-- Additional SEO Meta Tags -->
+  <meta name="keywords" content={`${project.category}, ${technologies?.join(", ")}, video editing, ${project.title}, Simon Mészáros`} />
+  <meta property="article:published_time" content={`${project.year}-01-01`} />
+  <meta property="article:section" content={project.category} />
   <main class="pt-32">
     <Container>
       <!-- Header -->
@@ -85,13 +90,21 @@ const structuredData = {
         </p>
       </div>
 
-      <!-- Video -->
+      <!-- Video or Poster -->
       <div class="mb-16 max-w-4xl">
-        <VideoPlayer
-          src={project.video}
-          poster={project.image}
-          title={project.title}
-        />
+        {project.video ? (
+          <VideoPlayer
+            src={project.video}
+            poster={project.image}
+            title={project.title}
+          />
+        ) : (
+          <img
+            src={project.image}
+            alt={project.title}
+            class="w-full aspect-video object-cover rounded-3xl"
+          />
+        )}
       </div>
 
       <!-- Details -->

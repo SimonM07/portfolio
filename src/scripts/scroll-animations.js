@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        // Optional: unobserve after revealing
-        // observer.unobserve(entry.target);
+        // Unobserve after revealing to prevent re-triggering
+        observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
@@ -51,11 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const video = entry.target;
       if (!(video instanceof HTMLVideoElement)) return;
 
-      if (entry.isIntersecting && entry.intersectionRatio > 0.35) {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.25) {
+        // Always try to load and play when visible
+        if (video.readyState < 2) {
+          video.load();
+        }
         if (video.paused && video.muted) {
-          if (video.readyState < 2) {
-            video.load();
-          }
           video.play().catch(() => null);
         }
       } else {
@@ -66,21 +67,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, {
     root: null,
-    threshold: [0.35]
+    threshold: [0.25]
   });
 
   autoplayVideos.forEach(video => {
+    // Immediately show video when it can play
     video.addEventListener('canplay', () => {
       video.style.opacity = '1';
       const poster = video.parentElement?.querySelector('.video-poster');
       if (poster) poster.style.opacity = '0';
     });
 
+    // Hide video on error, show poster
     video.addEventListener('error', () => {
       video.style.display = 'none';
       const poster = video.parentElement?.querySelector('.video-poster');
       if (poster) poster.style.opacity = '1';
     });
+
+    // Start autoplay immediately if already visible
+    if (video.muted) {
+      video.play().catch(() => null);
+    }
 
     videoObserver.observe(video);
   });
@@ -97,12 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Pause autoplay videos when the tab is inactive
   const handleVisibilityChange = () => {
-    const videos = document.querySelectorAll('video');
+    const videos = document.querySelectorAll('video[data-autoplay]');
     if (document.hidden) {
       videos.forEach(video => video.pause());
     } else {
       videos.forEach(video => {
-        if (video.autoplay && video.muted && video.paused) {
+        if (video.muted && video.paused) {
           video.play().catch(() => null);
         }
       });

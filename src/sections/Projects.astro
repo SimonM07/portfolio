@@ -31,13 +31,35 @@ const t = (key: string) => getTranslation(lang, key);
       />
     </div>
 
-    <div class="grid gap-6 sm:gap-8 lg:grid-cols-2 mt-12 lg:mt-16" id="projects-grid">
+    <!-- Category Filters -->
+    <div class="flex flex-wrap gap-2 sm:gap-3 mt-8 sm:mt-12 scroll-reveal" id="category-filters">
+      <button
+        class="filter-btn active px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all bg-white text-black hover:bg-neutral-200"
+        data-filter="all"
+      >
+        {lang === 'en' ? 'All' : 'Všetky'}
+      </button>
+      {Array.from(new Set(projects.map(p => p.category))).map(category => (
+        <button
+          class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all bg-neutral-800 text-white hover:bg-neutral-700"
+          data-filter={category}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+
+    <div class="grid gap-6 sm:gap-8 lg:grid-cols-2 mt-8 sm:mt-12 lg:mt-16" id="projects-grid">
 
       {projects
         .slice()
         .sort((a, b) => b.year - a.year)
         .map((project, index) => (
-          <div class={`scroll-reveal-${index % 2 === 0 ? 'left' : 'right'}`} style={`animation-delay: ${index * 0.1}s`}>
+          <div 
+            class={`scroll-reveal-${index % 2 === 0 ? 'left' : 'right'} project-item`} 
+            data-category={project.category}
+            style={`animation-delay: ${index * 0.1}s`}
+          >
             <ProjectCard
               title={project.title}
               category={project.category}
@@ -45,6 +67,7 @@ const t = (key: string) => getTranslation(lang, key);
               image={project.image}
               video={project.video}
               slug={project.slug}
+              isNew={index < 4}
             />
           </div>
       ))}
@@ -61,6 +84,46 @@ const t = (key: string) => getTranslation(lang, key);
           setTimeout(() => {
             grid.style.opacity = '1';
           }, 100);
+        }
+
+        // Category filtering
+        const filterButtons = document.querySelectorAll('.filter-btn') as NodeListOf<HTMLElement>;
+        const projectItems = document.querySelectorAll('.project-item') as NodeListOf<HTMLElement>;
+
+        filterButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const filter = button.dataset.filter;
+            
+            // Update active button
+            filterButtons.forEach(btn => {
+              btn.classList.remove('active', 'bg-white', 'text-black');
+              btn.classList.add('bg-neutral-800', 'text-white');
+            });
+            button.classList.add('active', 'bg-white', 'text-black');
+            button.classList.remove('bg-neutral-800', 'text-white');
+
+            // Filter projects
+            projectItems.forEach(item => {
+              const category = item.dataset.category;
+              if (filter === 'all' || category === filter) {
+                item.style.display = 'block';
+                item.style.opacity = '0';
+                setTimeout(() => {
+                  item.style.opacity = '1';
+                }, 50);
+              } else {
+                item.style.display = 'none';
+              }
+            });
+          });
+        });
+      });
+
+      // Remove loading state when page is fully loaded
+      window.addEventListener('load', () => {
+        const grid = document.getElementById('projects-grid');
+        if (grid) {
+          grid.style.opacity = '1';
         }
       });
     </script>
