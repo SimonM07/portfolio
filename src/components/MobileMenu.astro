@@ -89,11 +89,11 @@ const { lang = "sk" } = Astro.props;
     const mobileThemeBtn = document.getElementById('mobile-theme-btn');
     const mobileSunIcon = document.getElementById('mobile-sun-icon');
     const mobileMoonIcon = document.getElementById('mobile-moon-icon');
-    
+
     if (mobileThemeBtn && mobileSunIcon && mobileMoonIcon) {
+      // Always default to dark mode
       const storedTheme = window.localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      let isDark = storedTheme ? storedTheme === 'dark' : prefersDark;
+      let isDark = storedTheme ? storedTheme === 'dark' : true;
 
       function applyMobileTheme(darkMode: boolean) {
         document.documentElement.classList.toggle('light', !darkMode);

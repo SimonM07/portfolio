@@ -13,14 +13,14 @@
     height: 100%;
     pointer-events: none;
     z-index: 0;
-    opacity: 0.8;
+    opacity: 0.5;
     background: 
       radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-        rgba(255, 214, 10, 0.08) 0%, 
-        rgba(0, 217, 255, 0.05) 20%, 
+        rgba(255, 214, 10, 0.05) 0%, 
+        rgba(0, 217, 255, 0.03) 20%, 
         transparent 50%),
       radial-gradient(circle at calc(100% - var(--mouse-x, 50%)) calc(100% - var(--mouse-y, 50%)), 
-        rgba(0, 217, 255, 0.06) 0%, 
+        rgba(0, 217, 255, 0.04) 0%, 
         transparent 40%);
     transition: opacity 0.3s ease;
   }
@@ -28,121 +28,10 @@
 
 <script>
   function initInteractiveBackground() {
-    // Check for reduced motion preference or mobile device
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768; // sm breakpoint - true mobile
-    
-    if (prefersReducedMotion || isMobile) {
-      const bg = document.getElementById('interactive-bg');
-      if (bg) bg.remove();
-      return;
-    }
-
-    const bg = document.getElementById('interactive-bg');
-    if (!bg) return;
-
-    let mouseX = 50;
-    let mouseY = 50;
-    let currentX = 50;
-    let currentY = 50;
-    let lastTime = 0;
-    let targetFPS = 30; // Consistent FPS for better performance
-    let frameInterval = 1000 / targetFPS;
-    let animationId: number;
-    let frameCount = 0;
-    let fpsTime = 0;
-    let lowFPSCount = 0;
-
-    // Performance monitoring
-    function checkPerformance() {
-      frameCount++;
-      const now = performance.now();
-      
-      if (now - fpsTime >= 1000) {
-        const fps = frameCount;
-        frameCount = 0;
-        fpsTime = now;
-        
-        // If FPS is consistently low, reduce quality
-        if (fps < 20) {
-          lowFPSCount++;
-          if (lowFPSCount > 3) {
-            targetFPS = Math.max(15, targetFPS - 5);
-            frameInterval = 1000 / targetFPS;
-            console.log(`Reducing FPS to ${targetFPS} for performance`);
-          }
-        } else {
-          lowFPSCount = 0;
-        }
-      }
-    }
-
-    // Check memory usage (if available)
-    function checkMemory() {
-      if ('memory' in performance) {
-        const memory = (performance as any).memory;
-        if (memory) {
-          const usedMemory = memory.usedJSHeapSize / 1048576; // MB
-          const totalMemory = memory.totalJSHeapSize / 1048576; // MB
-          
-          // If using > 80% of total memory, disable
-          if (usedMemory / totalMemory > 0.8) {
-            console.log('High memory usage detected, disabling background');
-            if (bg) bg.remove();
-            if (animationId) cancelAnimationFrame(animationId);
-            return true;
-          }
-        }
-      }
-      return false;
-    }
-
-    // Direct mousemove for immediate response
-    document.addEventListener('mousemove', (e) => {
-      mouseX = (e.clientX / window.innerWidth) * 100;
-      mouseY = (e.clientY / window.innerHeight) * 100;
-    }, { passive: true });
-
-    function animate(currentTime: number) {
-      if (!bg) return;
-      
-      // Check memory periodically
-      if (frameCount % 60 === 0 && checkMemory()) {
-        return;
-      }
-      
-      const deltaTime = currentTime - lastTime;
-      if (deltaTime < frameInterval) {
-        animationId = requestAnimationFrame(animate);
-        return;
-      }
-      lastTime = currentTime - (deltaTime % frameInterval);
-
-      // Faster lerp for more responsive movement
-      currentX += (mouseX - currentX) * 0.2;
-      currentY += (mouseY - currentY) * 0.2;
-
-      bg.style.setProperty('--mouse-x', `${currentX}%`);
-      bg.style.setProperty('--mouse-y', `${currentY}%`);
-
-      checkPerformance();
-      animationId = requestAnimationFrame(animate);
-    }
-
-    fpsTime = performance.now();
-    animationId = requestAnimationFrame(animate);
-
-    // Cleanup on visibility change
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        if (bg) bg.style.opacity = '0';
-        if (animationId) cancelAnimationFrame(animationId);
-      } else {
-        if (bg) bg.style.opacity = '0.8';
-        fpsTime = performance.now();
-        animationId = requestAnimationFrame(animate);
-      }
-    });
+    // Disabled for performance optimization
+    const background = document.getElementById('interactive-bg');
+    if (background) background.remove();
+    return;
   }
 
   // Initialize when DOM is ready

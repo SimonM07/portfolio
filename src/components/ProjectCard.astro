@@ -41,8 +41,10 @@ const { title, category, year, image, video, slug, isNew = false } = Astro.props
                   loop
                   playsinline
                   webkit-playsinline
-                  preload="metadata"
+                  preload="none"
                   data-autoplay
+                  width="640"
+                  height="360"
                   onerror="this.style.display='none'; this.previousElementSibling.style.opacity='1';"
                 />
               </>

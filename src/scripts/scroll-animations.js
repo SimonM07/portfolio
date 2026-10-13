@@ -51,8 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const video = entry.target;
       if (!(video instanceof HTMLVideoElement)) return;
 
+      // Skip if video has no src
+      if (!video.src || video.src === window.location.href) return;
+
       if (entry.isIntersecting && entry.intersectionRatio > 0.25) {
-        // Always try to load and play when visible
+        // Load only when first visible (defer loading)
         if (video.readyState < 2) {
           video.load();
         }
@@ -71,11 +74,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   autoplayVideos.forEach(video => {
-    // Immediately show video when it can play
-    video.addEventListener('canplay', () => {
+    // Skip if video has no src
+    if (!video.src || video.src === window.location.href) return;
+
+    // Wait for video to be ready to play through (more frames buffered)
+    video.addEventListener('canplaythrough', () => {
       video.style.opacity = '1';
       const poster = video.parentElement?.querySelector('.video-poster');
       if (poster) poster.style.opacity = '0';
+    });
+
+    // Faster fallback - show when can play with 1 second buffered
+    video.addEventListener('canplay', () => {
+      // Only show if buffered enough (> 1 second for faster experience)
+      if (video.buffered.length > 0 && video.buffered.end(0) - video.buffered.start(0) > 1) {
+        video.style.opacity = '1';
+        const poster = video.parentElement?.querySelector('.video-poster');
+        if (poster) poster.style.opacity = '0';
+      }
     });
 
     // Hide video on error, show poster
@@ -85,7 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (poster) poster.style.opacity = '1';
     });
 
-    // Start autoplay immediately if already visible
+    // Don't force load initially - let Intersection Observer handle it
+    // Start autoplay only when visible
     if (video.muted) {
       video.play().catch(() => null);
     }
@@ -93,14 +110,22 @@ document.addEventListener('DOMContentLoaded', () => {
     videoObserver.observe(video);
   });
 
-  // Parallax effect for floating elements
+  // Parallax effect for floating elements - throttled for performance
   const floatingElements = document.querySelectorAll('.animate-float');
+  let ticking = false;
+
   window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    floatingElements.forEach((el, index) => {
-      const speed = 0.05 * (index + 1);
-      el.style.transform = `translateY(${scrollY * speed}px)`;
-    });
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        floatingElements.forEach((el, index) => {
+          const speed = 0.05 * (index + 1);
+          el.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
   });
 
   // Pause autoplay videos when the tab is inactive
