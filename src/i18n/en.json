@@ -8,7 +8,7 @@
     "available": "Open for work",
     "title": "Simon Mészáros",
     "subtitle": "Video Production",
-    "description": "I edit videos and create visual content for brands and projects.",
+    "description": "Professional video producer since 2023. I'm not a question, I'm the solution.",
     "cta1": "Get In Touch",
     "cta2": "My Work"
   },
@@ -19,13 +19,13 @@
   "about": {
     "subtitle": "About",
     "title": "Video Production",
-    "bio1": "I edit videos and create visual content for brands and projects.",
-    "bio2": "Focused on clean editing, color grading, and smooth transitions.",
-    "bio3": "Working with commercial projects, promo videos, and event coverage.",
-    "bio4": "Multimedia student since 2023 to present.",
+    "bio1": "I've been editing and producing videos since 2023, helping various companies. I also work on individual projects, whether for myself or for brands, companies, and individuals.",
+    "bio2": "I'm a professional video producer with experience in titling, masking, grading, scene setup, and professional production. I'm not a question, I'm the solution.",
+    "bio3": "Always open to learning new things.",
+    "bio4": "Video production and editing is my hobby and job. I love it and I'm here to make you visible on social media. Professional since 2023.",
     "skills": "Skills",
     "about": "About",
-    "bioText": "I love visual storytelling. Every project is an opportunity to create something that captures attention and leaves an impression.",
+    "bioText": "I love visual creation. Every project is an opportunity to create something that captures attention and leaves an impression.",
     "experience": "Experience",
     "current": "Currently",
     "freelance": "Freelance Multimedia Creator",
@@ -45,7 +45,8 @@
     "emailLabel": "Email",
     "instagramLabel": "Instagram",
     "linkedinLabel": "LinkedIn",
-    "vimeoLabel": "Vimeo"
+    "vimeoLabel": "Vimeo",
+    "twitterLabel": "Twitter"
   },
   "projectDetail": {
     "back": "← Back to Projects",

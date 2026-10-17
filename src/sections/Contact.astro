@@ -90,7 +90,7 @@ const t = (key: string) => getTranslation(lang, key);
 
         <div class="mt-6 sm:mt-8 lg:mt-12 border-t border-neutral-800 pt-6 sm:pt-8 lg:pt-12">
           <h3 class="heading-font mb-4 sm:mb-6 lg:mb-8 text-lg sm:text-xl lg:text-2xl font-bold">{t('contact.connect')}</h3>
-          <div class="grid gap-3 sm:gap-4 sm:grid-cols-2">
+          <div class="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <a
               href="tel:+421915382092"
               class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-4 py-3 sm:px-6 sm:py-4 transition hover:border-neutral-700 hover:bg-neutral-800 hover-lift group"
@@ -103,7 +103,7 @@ const t = (key: string) => getTranslation(lang, key);
               class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-4 py-3 sm:px-6 sm:py-4 transition hover:border-neutral-700 hover:bg-neutral-800 hover-lift group"
             >
               <p class="text-xs sm:text-sm text-neutral-500 mb-1 group-hover:text-neutral-400">{t('contact.emailLabel')}</p>
-              <p class="text-sm sm:font-semibold group-hover:text-white">simon07meszaros@gmail.com</p>
+              <p class="text-sm sm:font-semibold group-hover:text-white whitespace-nowrap overflow-hidden text-ellipsis">simon07meszaros@gmail.com</p>
             </a>
             <a
               href="https://instagram.com/simonvideography"
@@ -120,6 +120,14 @@ const t = (key: string) => getTranslation(lang, key);
             >
               <p class="text-xs sm:text-sm text-neutral-500 mb-1 group-hover:text-neutral-400">{t('contact.linkedinLabel')}</p>
               <p class="text-sm sm:font-semibold group-hover:text-white">Simon Mészáros</p>
+            </a>
+            <a
+              href="https://x.com/smn_videography"
+              target="_blank"
+              class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-4 py-3 sm:px-6 sm:py-4 transition hover:border-neutral-700 hover:bg-neutral-800 hover-lift group"
+            >
+              <p class="text-xs sm:text-sm text-neutral-500 mb-1 group-hover:text-neutral-400">{t('contact.twitterLabel')}</p>
+              <p class="text-sm sm:font-semibold group-hover:text-white">@smn_videography</p>
             </a>
           </div>
         </div>

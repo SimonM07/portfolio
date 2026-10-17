@@ -28,23 +28,25 @@ const { title, category, year, image, video, slug, isNew = false } = Astro.props
                 <img
                   src={image}
                   alt={`${title} project preview`}
-                  class="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out group-hover:scale-105 video-poster"
+                  class="absolute inset-0 w-full h-full object-cover object-center transition-all duration-400 ease-out group-hover:scale-105 video-poster"
                   loading="lazy"
                   decoding="async"
+                  fetchpriority="low"
                 />
 
                 <video
                   src={video}
                   poster={image}
-                  class="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out group-hover:scale-105 opacity-0 video-element"
+                  class="absolute inset-0 w-full h-full object-cover object-center transition-all duration-400 ease-out group-hover:scale-105 opacity-0 video-element"
                   muted
                   loop
                   playsinline
                   webkit-playsinline
-                  preload="none"
+                  preload="metadata"
                   data-autoplay
-                  width="640"
-                  height="360"
+                  width="480"
+                  height="270"
+                  style="max-width: 480px;"
                   onerror="this.style.display='none'; this.previousElementSibling.style.opacity='1';"
                 />
               </>
@@ -52,9 +54,10 @@ const { title, category, year, image, video, slug, isNew = false } = Astro.props
               <img
                 src={image}
                 alt={`${title} project preview`}
-                class="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out group-hover:scale-105"
+                class="absolute inset-0 w-full h-full object-cover object-center transition-all duration-400 ease-out group-hover:scale-105"
                 loading="lazy"
                 decoding="async"
+                fetchpriority="low"
               />
             )}
 

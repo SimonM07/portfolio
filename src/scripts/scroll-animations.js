@@ -101,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (poster) poster.style.opacity = '1';
     });
 
-    // Don't force load initially - let Intersection Observer handle it
     // Start autoplay only when visible
     if (video.muted) {
       video.play().catch(() => null);

@@ -8,7 +8,7 @@
     "available": "Open for work",
     "title": "Simon Mészáros",
     "subtitle": "Video produkcia",
-    "description": "Strihám videá a vytváram vizuálny obsah pre značky a projekty.",
+    "description": "Profesionálny video producent od roku 2023. Nie som otázka, som riešenie.",
     "cta1": "Napíš mi",
     "cta2": "Moje práce"
   },
@@ -19,13 +19,13 @@
   "about": {
     "subtitle": "O mne",
     "title": "Video produkcia",
-    "bio1": "Strihám videá a tvorím vizuálny obsah pre značky a projekty.",
-    "bio2": "Zameriavam sa na čistý strih, color grading a plynulé prechody.",
-    "bio3": "Pracujem s komerčnými projektmi, promo videami a event coverage.",
-    "bio4": "Študent multimedii od roku 2023 až dodnes.",
+    "bio1": "Venujem sa strihaniu a video produkcii hrdo už od roku 2023 a vypomáhám rôznym firmám. Taktiež robím aj individuálne projekty či už pre seba alebo pre značky, firmy a osoby.",
+    "bio2": "Som profesionálny video producent so skúsenosťami ako sú napr. titulkovanie, maskovanie, gradovanie, nastavenie scénky a profesionálna produkcia. Ja nie som otázka, ja som riešenie.",
+    "bio3": "Vždy otvorený sa učiť nové veci.",
+    "bio4": "Videoprodukcia a strih je moje hobby a robota. Milujem to a som tu preto, aby som Vás zviditeľnil na sociálnych sieťach. Profesionál od roku 2023.",
     "skills": "Skills",
     "about": "O mne",
-    "bioText": "Milujem vizuálne rozprávanie. Každý projekt je príležitosť vytvoriť niečo, čo zaujme a zanechá dojem.",
+    "bioText": "Milujem vizuálne tvorbu. Každý projekt je príležitosť vytvoriť niečo, čo zaujme a zanechá dojem.",
     "experience": "Skúsenosti",
     "current": "Aktuálne",
     "freelance": "Freelance multimediálny tvorca",
@@ -45,7 +45,8 @@
     "emailLabel": "Email",
     "instagramLabel": "Instagram",
     "linkedinLabel": "LinkedIn",
-    "vimeoLabel": "Vimeo"
+    "vimeoLabel": "Vimeo",
+    "twitterLabel": "Twitter"
   },
   "projectDetail": {
     "back": "← Späť na projekty",
